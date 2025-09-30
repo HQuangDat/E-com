@@ -3,6 +3,7 @@ import "./header.css"
 function Homepage() {
     return (
         <>
+            <title>Ecommerce Website</title>
             <div className="header">
             <div className="left-section">
                 <a href="index.html" className="header-link">
@@ -22,7 +23,7 @@ function Homepage() {
             </div>
 
             <div className="right-section">
-                <a className="orders-link header-link" href="orders.html">
+                <a className="orders-link header-link" href="/orders">
 
                 <span className="orders-text">Orders</span>
                 </a>

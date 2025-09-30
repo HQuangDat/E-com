@@ -1,9 +1,11 @@
 
 import { Link } from 'react-router-dom';
-
+import "./checkout.css";
+import "./checkout-header.css"
 function Checkout() {
   return (
     <>
+      <title>Check out</title>
       <div className="checkout-header">
         <div className="header-content">
           <div className="checkout-header-left-section">
