@@ -1,7 +1,15 @@
 import "./Homepage.css"
+import { useEffect, useState } from "react";
+import axios from "axios";
 import Header from "../components/Header";
-import { products } from "../data/products.js";
 function Homepage() {
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://localhost:3000/api/products')
+            .then(response => setProducts(response.data))
+    }, [])
+
     return (
         <>
             <title>Ecommerce Website</title>
@@ -15,7 +23,7 @@ function Homepage() {
                             <div className="product-container" key={product.id}>
                                 <div className="product-image-container">
                                     <img className="product-image"
-                                        src= {product.image} />
+                                        src={product.image} />
                                 </div>
 
                                 <div className="product-name limit-text-to-2-lines">
@@ -31,7 +39,7 @@ function Homepage() {
                                 </div>
 
                                 <div className="product-price">
-                                    ${(product.priceCents /100).toFixed(2)}
+                                    ${(product.priceCents / 100).toFixed(2)}
                                 </div>
 
                                 <div className="product-quantity-container">
