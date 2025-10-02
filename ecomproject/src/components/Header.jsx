@@ -32,7 +32,7 @@ function Header({cart}){
                     <span className="orders-text">Orders</span>
                 </Link>
 
-                <Link className="cart-link header-link" to="checkout.html">
+                <Link className="cart-link header-link" to="/checkout">
                     <img className="cart-icon" src="images/icons/cart-icon.png" />
                     <div className="cart-quantity">{cartQuantity}</div>
                     <div className="cart-text">Cart</div>

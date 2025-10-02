@@ -1,19 +1,6 @@
 import "./Homepage.css"
-import { useEffect, useState } from "react";
-import axios from "axios";
 import Header from "../components/Header";
-function Homepage() {
-    const [products, setProducts] = useState([]);
-    const [cartItems, setCartItems] = useState([]);
-
-    useEffect(() => {
-        axios.get('/api/products')
-            .then(response => setProducts(response.data))
-
-        axios.get('/api/cart-items')
-            .then(response => setCartItems(response.data))
-    }, [])
-
+function Homepage({products, cartItems}) {
     return (
         <>
             <title>Ecommerce Website</title>
