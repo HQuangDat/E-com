@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { dayjs } from "dayjs";
 import { Link } from 'react-router-dom';
 import axios from "axios";
+import { convertCentToDollar } from "../utility/convertCentToDollar";
 import "./checkout.css";
 import "./checkout-header.css"
 function Checkout({ cartItems }) {
@@ -38,12 +38,11 @@ function Checkout({ cartItems }) {
 
         <div className="checkout-grid">
           <div className="order-summary">
-            {deliveryOption > 0 && cartItems.map((item) => {
-              const selectedDeliveryOption = deliveryOption.find((option) => option.id === item.deliveryOptionId);
+            {cartItems.map((item) => {
               return (
                 <div className="cart-item-container" key={item.productId}>
                   <div className="delivery-date">
-                    Delivery date: Tuesday, June 21 {dayjs(selectedDeliveryOption.estimatedDeliveryTimeMs).format('dddd, MMMM D')}
+                    Delivery date: Tuesday, June 21
                   </div>
 
                   <div className="cart-item-details-grid">
@@ -55,7 +54,7 @@ function Checkout({ cartItems }) {
                         {item.product.name}
                       </div>
                       <div className="product-price">
-                        ${(item.product.priceCents / 100).toFixed(2)}
+                        ${convertCentToDollar(item.product.priceCents)}
                       </div>
                       <div className="product-quantity">
                         <span>
@@ -74,10 +73,10 @@ function Checkout({ cartItems }) {
                       <div className="delivery-options-title">
                         Choose a delivery option:
                       </div>
-                      {deliveryOption.map((option) => {
+                      {deliveryOption.length > 0 && deliveryOption.map((option) => {
                         let shippingfee = 'Free shipping';
-                        if (deliveryOption.priceCents) {
-                          shippingfee = `$${(option.priceCents / 100).toFixed(2)} - Shipping`
+                        if (option.priceCents > 0) {
+                          shippingfee = `$${convertCentToDollar(option.priceCents)} - Shipping`
                         }
                         return (
                           <div className="delivery-option" key={option.id}>
@@ -86,7 +85,7 @@ function Checkout({ cartItems }) {
                               name={`delivery-option-${cartItems.productId}`} />
                             <div>
                               <div className="delivery-option-date">
-                                {dayjs().add(option.estimatedDeliveryTime.estimatedDeliveryTimeMs, 'day').format('dddd, MMMM D')}
+                                Unknown
                               </div>
                               <div className="delivery-option-price">
                                 {shippingfee}
