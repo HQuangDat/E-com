@@ -8,8 +8,11 @@ import {convertCentToDollar} from "../utility/convertCentToDollar";
 function OrderPage({ cartItems }) {
     const [orders, setOrder] = useState([]);
     useEffect(() => {
-        axios.get('/api/orders?expand=products')
-            .then(response => setOrder(response.data))
+        const fetchOrdersData = async () => {
+            const response = await axios.get('/api/orders?expand=products')
+            setOrder(response.data)
+        }
+        fetchOrdersData()
     }, []);
     return (
         <>
