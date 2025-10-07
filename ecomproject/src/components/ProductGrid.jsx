@@ -1,11 +1,11 @@
 
 import Product from "./Product";
-function ProductGrid({ products}) {
+function ProductGrid({ products, fetchInitialData}) {
     return (
         <div className="products-grid">
             {products.map((product) => {
                 return (
-                    <Product key={product.id} product={product}/>
+                    <Product key={product.id} product={product} fetchInitialData={fetchInitialData}/>
                 )
             })}
         </div>

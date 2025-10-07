@@ -53,7 +53,7 @@ function Product({ product , fetchInitialData}) {
             <button className="add-to-cart-button button-primary" onClick={async () => {
                 await axios.post('api/cart-items', {
                     productId: product.id,
-                    quantity: quantity
+                    quantity
                 })
                 await fetchInitialData()
             }}>
