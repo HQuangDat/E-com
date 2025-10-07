@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { convertCentToDollar } from "../utility/convertCentToDollar";
-import "./checkout.css";
-import "./checkout-header.css"
+import "../pages/checkout.css";
+import "../pages/checkout-header.css"
 function CheckoutPage({cartItems, deliveryOption, paymentSummary}) {
     return (
         <>
