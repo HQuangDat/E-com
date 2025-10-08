@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import CheckoutPage from "../components/CheckoutPage.jsx";
-function Checkout({ cartItems }) {
+function Checkout({ cartItems , fetchInitialData  }) {
   const [deliveryOption, setDeliveryOption] = useState([]);
   const [paymentSummary, setPaymentSummary] = useState({});
 
@@ -18,7 +18,7 @@ function Checkout({ cartItems }) {
   return (
     <>
       <title>Check out</title>
-      <CheckoutPage cartItems={cartItems} deliveryOption={deliveryOption} paymentSummary={paymentSummary}/>
+      <CheckoutPage cartItems={cartItems} deliveryOption={deliveryOption} paymentSummary={paymentSummary} fetchInitialData={fetchInitialData}/>
     </>
   );
 }

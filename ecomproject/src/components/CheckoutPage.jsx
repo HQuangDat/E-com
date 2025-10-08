@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { convertCentToDollar } from "../utility/convertCentToDollar";
+import axios from "axios";
 import "../pages/checkout.css";
 import "../pages/checkout-header.css"
-function CheckoutPage({cartItems, deliveryOption, paymentSummary}) {
+function CheckoutPage({cartItems, deliveryOption, paymentSummary, fetchInitialData}) {
     return (
         <>
             <div className="checkout-header">
@@ -30,6 +31,10 @@ function CheckoutPage({cartItems, deliveryOption, paymentSummary}) {
                 <div className="checkout-grid">
                     <div className="order-summary">
                         {cartItems.map((item) => {
+                            const deleteItem = async () => {
+                                await axios.delete(`api/cart-items/${item.productId}`)
+                                await fetchInitialData()
+                            }
                             return (
                                 <div className="cart-item-container" key={item.productId}>
                                     <div className="delivery-date">
@@ -54,7 +59,7 @@ function CheckoutPage({cartItems, deliveryOption, paymentSummary}) {
                                                 <span className="update-quantity-link link-primary">
                                                     Update
                                                 </span>
-                                                <span className="delete-quantity-link link-primary">
+                                                <span className="delete-quantity-link link-primary" onClick={deleteItem}>
                                                     Delete
                                                 </span>
                                             </div>
@@ -69,9 +74,16 @@ function CheckoutPage({cartItems, deliveryOption, paymentSummary}) {
                                                 if (option.priceCents > 0) {
                                                     shippingfee = `$${convertCentToDollar(option.priceCents)} - Shipping`
                                                 }
+
+                                                const updateDeliveryOption = async () => {
+                                                    await axios.put(`api/cart-items/${item.id}`, {
+                                                        deliveryOptionId: option.id
+                                                    })
+                                                    await fetchInitialData()
+                                                }
                                                 return (
-                                                    <div className="delivery-option" key={option.id}>
-                                                        <input type="radio" checked={deliveryOption.id === cartItems.deliveryOptionId}
+                                                    <div className="delivery-option" key={option.id} onClick={updateDeliveryOption}>
+                                                        <input type="radio" checked={deliveryOption.id === cartItems.deliveryOptionId} onChange={() => { }}
                                                             className="delivery-option-input"
                                                             name={`delivery-option-${cartItems.productId}`} />
                                                         <div>
