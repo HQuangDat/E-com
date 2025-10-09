@@ -1,9 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import { convertCentToDollar } from "../utility/convertCentToDollar";
 import axios from "axios";
 import "../pages/checkout.css";
 import "../pages/checkout-header.css"
 function CheckoutPage({cartItems, deliveryOption, paymentSummary, fetchInitialData}) {
+    const navigate = useNavigate();
+    const placeOrder = async () => {
+        await axios.post('/api/orders')
+        await fetchInitialData()
+        navigate('/orders')
+    }
     return (
         <>
             <div className="checkout-header">
@@ -136,7 +142,7 @@ function CheckoutPage({cartItems, deliveryOption, paymentSummary, fetchInitialDa
                                     <div className="payment-summary-money">${convertCentToDollar(paymentSummary.totalCostCents)}</div>
                                 </div>
 
-                                <button className="place-order-button button-primary">
+                                <button className="place-order-button button-primary" onClick={placeOrder}>
                                     Place your order
                                 </button>
                             </>
