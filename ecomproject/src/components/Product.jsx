@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { convertCentToDollar } from "../utility/convertCentToDollar";
 function Product({ product , fetchInitialData}) {
     const addToCart = async () => {
                 await axios.post('api/cart-items', {
@@ -34,7 +35,7 @@ function Product({ product , fetchInitialData}) {
             </div>
 
             <div className="product-price">
-                ${(product.priceCents / 100).toFixed(2)}
+                {convertCentToDollar(product.priceCents)}
             </div>
 
             <div className="product-quantity-container">

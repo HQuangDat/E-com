@@ -17,7 +17,7 @@ function OrderGrid({ orders }) {
                                 </div>
                                 <div className="order-total">
                                     <div className="order-header-label">Total:</div>
-                                    <div>${convertCentToDollar(order.totalCostCents)}</div>
+                                    <div>{convertCentToDollar(order.totalCostCents)}</div>
                                 </div>
                             </div>
 

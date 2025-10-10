@@ -56,7 +56,7 @@ function CheckoutPage({cartItems, deliveryOption, paymentSummary, fetchInitialDa
                                                 {item.product.name}
                                             </div>
                                             <div className="product-price">
-                                                ${convertCentToDollar(item.product.priceCents)}
+                                                {convertCentToDollar(item.product.priceCents)}
                                             </div>
                                             <div className="product-quantity">
                                                 <span>
@@ -78,7 +78,7 @@ function CheckoutPage({cartItems, deliveryOption, paymentSummary, fetchInitialDa
                                             {deliveryOption.length > 0 && deliveryOption.map((option) => {
                                                 let shippingfee = 'Free shipping';
                                                 if (option.priceCents > 0) {
-                                                    shippingfee = `$${convertCentToDollar(option.priceCents)} - Shipping`
+                                                    shippingfee = `{convertCentToDollar(option.priceCents)} - Shipping`
                                                 }
 
                                                 const updateDeliveryOption = async () => {
@@ -119,27 +119,27 @@ function CheckoutPage({cartItems, deliveryOption, paymentSummary, fetchInitialDa
                             <>
                                 <div className="payment-summary-row">
                                     <div>Items ({paymentSummary.totalItems}):</div>
-                                    <div className="payment-summary-money">${convertCentToDollar(paymentSummary.productCostCents)}</div>
+                                    <div className="payment-summary-money">{convertCentToDollar(paymentSummary.productCostCents)}</div>
                                 </div>
 
                                 <div className="payment-summary-row">
                                     <div>Shipping &amp; handling:</div>
-                                    <div className="payment-summary-money">${convertCentToDollar(paymentSummary.shippingCostCents)}</div>
+                                    <div className="payment-summary-money">{convertCentToDollar(paymentSummary.shippingCostCents)}</div>
                                 </div>
 
                                 <div className="payment-summary-row subtotal-row">
                                     <div>Total before tax:</div>
-                                    <div className="payment-summary-money">${convertCentToDollar(paymentSummary.totalCostBeforeTaxCents)}</div>
+                                    <div className="payment-summary-money">{convertCentToDollar(paymentSummary.totalCostBeforeTaxCents)}</div>
                                 </div>
 
                                 <div className="payment-summary-row">
                                     <div>Estimated tax (10%):</div>
-                                    <div className="payment-summary-money">${convertCentToDollar(paymentSummary.taxCents)}</div>
+                                    <div className="payment-summary-money">{convertCentToDollar(paymentSummary.taxCents)}</div>
                                 </div>
 
                                 <div className="payment-summary-row total-row">
                                     <div>Order total:</div>
-                                    <div className="payment-summary-money">${convertCentToDollar(paymentSummary.totalCostCents)}</div>
+                                    <div className="payment-summary-money">{convertCentToDollar(paymentSummary.totalCostCents)}</div>
                                 </div>
 
                                 <button className="place-order-button button-primary" onClick={placeOrder}>
