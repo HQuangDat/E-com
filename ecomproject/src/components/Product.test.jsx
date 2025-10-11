@@ -1,16 +1,18 @@
 import axios from "axios";
-import { useState } from "react";
-import { convertCentToDollar } from "../utility/convertCentToDollar";
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi, beforeEach } from 'vitest';
 import Product from "./Product";
 import { render, screen } from '@testing-library/react';
 
 vi.mock('axios');
 
 describe('Product Component', () => {
-    it('renders product details correctly', () => {
-        const product = {
+    let product;
+
+    let loadCart;
+
+    beforeEach(() => {
+        product = {
             id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
             image: "images/products/athletic-cotton-socks-6-pairs.jpg",
             name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
@@ -22,8 +24,10 @@ describe('Product Component', () => {
             keywords: ["socks", "sports", "apparel"]
         }
 
-        const loadCart = vi.fn();
+        loadCart = vi.fn();
+    })
 
+    it('renders product details correctly', () => {
         render(<Product product={product} fetchInitialData={loadCart} />);
         expect(screen.getByText("Black and Gray Athletic Cotton Socks - 6 Pairs")).toBeInTheDocument();
         expect(screen.getByText("$10.90")).toBeInTheDocument();
@@ -33,20 +37,6 @@ describe('Product Component', () => {
     })
 
     it('add a product to cart', async () => {
-        const product = {
-            id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-            image: "images/products/athletic-cotton-socks-6-pairs.jpg",
-            name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
-            rating: {
-                stars: 4.5,
-                count: 87
-            },
-            priceCents: 1090,
-            keywords: ["socks", "sports", "apparel"]
-        }
-
-        const loadCart = vi.fn();
-
         render(<Product product={product} fetchInitialData={loadCart} />);
         const addToCartButton = screen.getByTestId("add-to-cart-button");
         const user = userEvent.setup();
